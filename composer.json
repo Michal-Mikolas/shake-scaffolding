@@ -1,0 +1,24 @@
+{
+	"name": "shake/scaffolding",
+	"type": "library",
+	"description": "Enhanced Nette/Database with lightweight ORM features.",
+	"keywords": ["nette", "shake", "database", "ORM", "php"],
+	"homepage": "https://bitbucket.org/nanuqcz/shake-shake/wiki",
+	"authors": [
+		{
+			"name": "Michal Mikoláš",
+			"homepage": "http://www.michalm.cz"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"nette/nette": ">=2.2.0",
+		"nette/database": ">=2.2.0",
+		"nette/application": ">=2.2.0",
+		"nette/di": ">=2.2.0",
+		
+		"shake/shake": "dev-master",
+		"shake/utils": "dev-master",
+		"shake/application": "dev-master"
+	}
+}
