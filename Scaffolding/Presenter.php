@@ -1,9 +1,10 @@
 <?php
 namespace Shake\Scaffolding;
 
-use \Shake\Utils\Strings,
-	\Shake\VisualPaginator;
-use \Nette;
+use Shake,
+	Shake\Utils\Strings,
+	Shake\VisualPaginator;
+use Nette;
 
 
 /**
@@ -167,7 +168,7 @@ class Presenter extends Shake\Application\UI\Presenter
 
 	public function formatLayoutTemplateFiles()
 	{
-		$name = $this->getName();		
+		$name = $this->getName();
 		$modules = explode(':', $name);
 		$presenter = array_pop($modules);
 		$layout = $this->layout ? $this->layout : 'layout';
