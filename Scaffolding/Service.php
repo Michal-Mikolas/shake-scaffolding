@@ -115,4 +115,30 @@ class Service extends Object
 		return $name . 'Repository';                  // fooBarRepository
 	}
 
+
+
+	public function &__get($name)
+	{
+		// Default behavior
+		try {
+			return parent::__get($name);
+
+		// Automatic service getter from context
+		} catch (\Nette\MemberAccessException $e) {
+			// Repository
+			if (strrpos($name, 'Repository') == (strlen($name) - 10)) {
+				$repository = $this->context->$name;
+				return $repository;
+			}
+			
+			// Service
+			if (strrpos($name, 'Service') == (strlen($name) - 7)) {
+				$service = $this->context->$name;
+				return $service;
+			}
+
+			throw $e;
+		}
+	}
+
 }
