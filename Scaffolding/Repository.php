@@ -19,7 +19,7 @@ use Nette\Object,
  */
 class Repository extends Object
 {
-	/** @var Database\Contect */
+	/** @var Nette\Database\Context|Shake\Database\Orm\Context */
 	private $connection;
 
 	/** @var string */
@@ -27,6 +27,9 @@ class Repository extends Object
 
 
 
+	/**
+	 * @param Nette\Database\Context|Shake\Database\Orm\Context
+	 */
 	public function __construct($connection)
 	{
 		$this->connection = $connection;
@@ -99,9 +102,10 @@ class Repository extends Object
 	/**
 	 * @param array|NULL
 	 * @param array|NULL
+	 * @param array|NULL
 	 * @return IRowContainer
 	 */
-	public function search($conditions = NULL, $limit = NULL) 
+	public function search($conditions = NULL, $limit = NULL, $order = NULL) 
 	{
 		$selection = $this->select();
 
@@ -114,6 +118,10 @@ class Repository extends Object
 			$selection->limit($limit[0], $limit[1]);
 		}
 
+		if ($order) {
+			$selection->order($order);
+		}
+
 		return $selection;
 	}
 
@@ -123,11 +131,12 @@ class Repository extends Object
 	 * @param string  key column name
 	 * @param string  value column name
 	 * @param array|NULL
+	 * @param array|NULL
 	 * @return array
 	 */
-	public function fetchPairs($key, $value = NULL, $conditions = NULL)
+	public function fetchPairs($key, $value = NULL, $conditions = NULL, $order = NULL)
 	{
-		$selection = $this->search($conditions);
+		$selection = $this->search($conditions, NULL, $order);
 
 		return $selection->fetchPairs($key, $value);
 	}
@@ -257,7 +266,7 @@ class Repository extends Object
 		// searchBy<column>
 		} elseif (Strings::startsWith($name, 'searchBy')) {
 			$column = substr($name, 8);
-			return $this->searchBy($column, $args[0]);
+			return $this->searchBy($column, $args[0], $args[1], $args[2]);
 
 		// updateBy<column>
 		} elseif (Strings::startsWith($name, 'updateBy')) {
@@ -317,7 +326,7 @@ class Repository extends Object
 	 * @param array|NULL
 	 * @return IRowContainer
 	 */
-	public function searchBy($name, $value, $limit = NULL)
+	public function searchBy($name, $value, $limit = NULL, $order = NULL)
 	{
 		$name = $this->toUnderscoreCase($name);
 		$name = $this->prefix($name);
@@ -327,6 +336,9 @@ class Repository extends Object
 
 		if ($limit)
 			$selection->limit($limit[0], $limit[1]);
+
+		if ($order)
+			$selection->order($order);
 
 		return $selection;
 	}
