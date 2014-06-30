@@ -276,7 +276,7 @@ class Repository extends Object
 		// deleteBy<column>
 		} elseif (Strings::startsWith($name, 'deleteBy')) {	
 			$column = substr($name, 8);
-			return $this->deleteBy($column, $args[0], $args[1]);
+			return $this->deleteBy($column, $args[0]);
 		}
 
 		throw new MemberAccessException("Call to undefined method " . get_class($this) . "::$name().");
