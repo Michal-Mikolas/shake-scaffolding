@@ -266,7 +266,7 @@ class Repository extends Object
 		// searchBy<column>
 		} elseif (Strings::startsWith($name, 'searchBy')) {
 			$column = substr($name, 8);
-			return $this->searchBy($column, $args[0], $args[1], $args[2]);
+			return $this->searchBy($column, $args[0], @$args[1], @$args[2]);  // @ - last 2 args are not required
 
 		// updateBy<column>
 		} elseif (Strings::startsWith($name, 'updateBy')) {
