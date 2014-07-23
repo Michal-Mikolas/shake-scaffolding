@@ -22,7 +22,7 @@ class PresenterFactory extends Nette\Application\PresenterFactory
 		
 		// Create virtual presenter
 		} catch (Nette\Application\InvalidPresenterException $e) {
-			return 'Shake\Scaffolding\Presenter';
+			return 'Shake\Scaffolding\VirtualPresenter';
 		}
 	}
 
