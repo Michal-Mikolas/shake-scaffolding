@@ -416,7 +416,7 @@ class Repository extends Object
 	 */
 	private function prefix($columnName)
 	{
-		if (strpos($columnName, '.') || strpos($columnName, ':'))
+		if (strpos($columnName, '.') || strpos($columnName, ':') || ctype_upper($columnName{0}))
 			return $columnName;
 
 		return $this->getTableName() . ".$columnName";
