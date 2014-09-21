@@ -404,7 +404,10 @@ class Repository extends Object
 	 */
 	private function toUnderscoreCase($name)
 	{
-		return strtolower(preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $name));
+		$name = strtolower(preg_replace('/([a-z0-9])([A-Z])/', '$1_$2', $name));
+		$name = preg_replace('/([a-z])(2_)/', '$1_$2', $name);  // support for joining tables
+
+		return $name;
 	}
 
 
