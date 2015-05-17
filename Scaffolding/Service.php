@@ -108,8 +108,10 @@ class Service extends Object
 	 */
 	private function detectRepositoryName()
 	{
-		$name = get_class($this);                     // FooBarService
-		$name = substr($name, 0, strlen($name) - 7);  // FooBar
+		$name = get_class($this);                     // App\Model\FooBarService
+		$name = substr($name, 0, strlen($name) - 7);  // App\Model\FooBar
+		$name = substr($name, strrpos($name, '\\'));  // \FooBar
+		$name = trim($name, '\\');                    // FooBar
 		$name = lcfirst($name);                       // fooBar
 
 		return $name . 'Repository';                  // fooBarRepository
