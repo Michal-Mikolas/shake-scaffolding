@@ -13,7 +13,7 @@ trait createComponentForm
 
 	protected function createComponentForm($name)
 	{
-		/** @todo */
+		// TODO
 	}
 
 }
