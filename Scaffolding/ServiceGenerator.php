@@ -73,7 +73,7 @@ class ServiceGenerator extends Object
 		$info['className'] = array_pop($parts);
 		$info['classNamespace'] = implode('\\', $parts);
 		
-		$info['fileName'] = $info['serviceName'] . '.php';
+		$info['fileName'] = ucfirst($info['serviceName']) . '.php';
 		$info['filePath'] = $this->dir . '/'. $info['fileName'];
 		
 		// Return

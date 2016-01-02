@@ -13,7 +13,7 @@ trait renderDetail
 
 	public function renderDetail($id)
 	{
-		$this->template->{$this->entityName} = $this->context->{$this->serviceName}->get($id);
+		$this->template->{$this->entityName} = $this->context->getService($this->serviceName)->get($id);
 	}
 
 }

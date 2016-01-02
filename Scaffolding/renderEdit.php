@@ -13,7 +13,7 @@ trait renderEdit
 
 	public function renderEdit($id)
 	{
-		$entry = $this->context->{$this->serviceName}->get($id);
+		$entry = $this->context->getService($this->serviceName)->get($id);
 		
 		$this->template->{$this->entityName} = $entry;
 		$this['form']->setDefaults($entry);

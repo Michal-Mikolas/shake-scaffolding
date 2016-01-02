@@ -13,7 +13,7 @@ trait handleDelete
 
 	public function handleDelete($id)
 	{
-		$result = $this->context->{$this->serviceName}->delete($id);
+		$result = $this->context->getService($this->serviceName)->delete($id);
 
 		if ($result) {
 			$this->flashMessage('Entry succesfully deleted.');

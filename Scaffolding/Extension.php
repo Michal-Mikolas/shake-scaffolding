@@ -50,6 +50,9 @@ class Extension extends CompilerExtension
 			$this->config['repositoryMapping'],
 			$this->config['serviceMapping']
 		);
+
+		// Activate Shake\DI\Container for service autoloading
+		$this->containerBuilder->parameters['container']['parent'] = 'Shake\\Scaffolding\\DI\\Container';
 	}
 
 
@@ -175,6 +178,9 @@ class Extension extends CompilerExtension
 		if ($this->containerBuilder->findByType($class))
 			return FALSE;  // don't create this virtual service, user already defined it on his own
 
+		if (class_exists($class))
+			return FALSE;
+
 		// Check if user didn't disable virtual service creation
 		$disabled = $this->config['disableVirtualServices'];
 
@@ -199,18 +205,33 @@ class Extension extends CompilerExtension
 	 */
 	public function afterCompile(Nette\PhpGenerator\ClassType $class)
 	{
-		// Is virtual services disabled?  
-		if ($this->config['disableVirtualServices'] === TRUE) return;
-
-		// Generate autoloader
-		$autoloaderPath = $this->containerBuilder->parameters['tempDir'] . '/Shake.Scaffolding/autoloader.php';
-		$this->serviceGenerator->generateAutoloader($autoloaderPath);
-		
-		// Register scaffolding-services autoloader 
 		$method = $class->methods['__construct'];
+
+		/*
+		 * DI\Container services autoloading
+		 */
 		$method->addBody("\n"
-			. "require('$autoloaderPath');\n"
+			. "\$this->repositoryMapping = '" 
+				. addslashes($this->config['repositoryMapping']) 
+			. "';\n"
+			. "\$this->serviceMapping = '" 
+				. addslashes($this->config['serviceMapping']) 
+			. "';"
 		);
+
+		/*
+		 * Service classes autoloading
+		 */
+		if ($this->config['disableVirtualServices'] !== TRUE) {
+			// Generate class autoloader
+			$autoloaderPath = $this->containerBuilder->parameters['tempDir'] . '/Shake.Scaffolding/autoloader.php';
+			$this->serviceGenerator->generateAutoloader($autoloaderPath);
+
+			// Register scaffolding class autoloader 
+			$method->addBody("\n"
+				. "require('$autoloaderPath');"
+			);
+		}
 	}
 
 }

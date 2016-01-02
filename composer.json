@@ -17,6 +17,7 @@
 		"php": ">=5.4.0",
 		"nette/nette": "2.3.*",
 		
-		"shake/shake": "2.3.*"
+		"shake/utils": "2.3.*",
+		"shake/components": "~2.3.1"
 	}
 }
