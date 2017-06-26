@@ -15,11 +15,11 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
-		"nette/nette": ">=2.2.0",
-		"nette/database": ">=2.2.0",
-		"nette/application": ">=2.2.0",
-		"nette/di": ">=2.2.0",
-		
+		"nette/nette": "2.4.*",
+		"nette/database": "2.4.*",
+		"nette/application": "2.4.*",
+		"nette/di": "2.4.*",
+
 		"shake/shake": "dev-master",
 		"shake/utils": "dev-master",
 		"shake/application": "dev-master"
