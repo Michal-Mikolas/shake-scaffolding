@@ -20,8 +20,10 @@
 		"nette/application": "2.4.*",
 		"nette/di": "2.4.*",
 
-		"shake/shake": "dev-master",
-		"shake/utils": "dev-master",
-		"shake/application": "dev-master"
+		"shake/shake": "2.4.*",
+		"shake/utils": "2.4.*",
+		"shake/application": "2.4.*",
+
+		"ipub/visual-paginator": "dev-master"
 	}
 }
