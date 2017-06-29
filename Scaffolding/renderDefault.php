@@ -13,15 +13,17 @@ trait renderDefault
 
 	public function renderDefault()
 	{
-		$this->template->{$this->listName} = $this->context->{$this->serviceName}->search();
+		$this->template->{$this->getListName()}
+		 = $this->context->getService($this->getServiceName())->search();
 
-		$data = $this->context->{$this->serviceName}->search();
-		
+		$data = $this->context->getService($this->getServiceName())->search();
+
 		if (isset($this['paginator'])) {
-			$this['paginator']->paginator->itemCount = $this->context->{$this->serviceName}->count($data);
-			$this->template->{$this->paginatedListName} = $this->paginate(  // wtf?
+			$this['paginator']->getPaginator()->itemCount
+			 = $this->context->getService($this->getServiceName())->count($data);
+			$this->template->{$this->getPaginatedListName()} = $this->paginate(  // wtf?
 				$data,
-				$this->context->{$this->serviceName}
+				$this->context->getService($this->getServiceName())
 			);
 		}
 	}

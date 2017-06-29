@@ -11,7 +11,7 @@ use Nette\Object,
 
 
 /**
- * Scaffolding\Repository 
+ * Scaffolding\Repository
  * Base repository with conventional functions.
  *
  * @author  Michal Mikoláš <nanuqcz@gmail.com>
@@ -66,7 +66,7 @@ class Repository extends Object
 	 * @return IRow
 	 * @throws Nette\Application\BadRequestException
 	 */
-	public function get($id) 
+	public function get($id)
 	{
 		$row = $this->find($id);
 
@@ -83,7 +83,7 @@ class Repository extends Object
 	 * @param int|array
 	 * @return IRow|FALSE
 	 */
-	public function find($conditions) 
+	public function find($conditions)
 	{
 		$selection = $this->select();
 
@@ -105,7 +105,7 @@ class Repository extends Object
 	 * @param array|NULL
 	 * @return IRowContainer
 	 */
-	public function search($conditions = NULL, $limit = NULL, $order = NULL) 
+	public function search($conditions = NULL, $limit = NULL, $order = NULL)
 	{
 		$selection = $this->select();
 
@@ -147,9 +147,10 @@ class Repository extends Object
 	 * @param array
 	 * @return IRow|FALSE
 	 */
-	public function create($values) 
+	public function create($values)
 	{
-		return $this->connection->table($this->getTableName())->insert($values);
+		return $this->connection->table($this->getTableName())
+			->insert($values);
 	}
 
 
@@ -159,9 +160,11 @@ class Repository extends Object
 	 * @param array
 	 * @return int
 	 */
-	public function update($id, $values) 
+	public function update($id, $values)
 	{
-		return $this->connection->table($this->getTableName())->get($id)->update($values);
+		return $this->connection->table($this->getTableName())
+			->get($id)
+			->update($values);
 	}
 
 
@@ -170,9 +173,11 @@ class Repository extends Object
 	 * @param int
 	 * @return int
 	 */
-	public function delete($id) 
+	public function delete($id)
 	{
-		return $this->connection->table($this->getTableName())->get($id)->delete();
+		return $this->connection->table($this->getTableName())
+			->get($id)
+			->delete();
 	}
 
 
@@ -209,14 +214,14 @@ class Repository extends Object
 		} elseif ($data instanceof Iterator) {
 			$data = iterator_to_array($data);
 			return array_slice($data, $offset, $limit);
-			
+
 		// Array
 		} elseif ($data instanceof ArrayAccess) {
 			return array_slice($data, $offset, $limit);
-		
+
 		// Bad argument?
 		} else {
-			if (is_object($data)) 
+			if (is_object($data))
 				throw new InvalidArgumentException("Can't apply limit to instance of " . get_class($data) . ".");
 			else
 				throw new InvalidArgumentException("Can't apply limit to " . gettype($data) . " type variable.");
@@ -274,7 +279,7 @@ class Repository extends Object
 			return $this->updateBy($column, $args[0], $args[1]);
 
 		// deleteBy<column>
-		} elseif (Strings::startsWith($name, 'deleteBy')) {	
+		} elseif (Strings::startsWith($name, 'deleteBy')) {
 			$column = substr($name, 8);
 			return $this->deleteBy($column, $args[0]);
 		}
@@ -313,9 +318,9 @@ class Repository extends Object
 		$name = $this->prefix($name);
 
 		return $this->select()
-					->where($name, $value)
-					->limit(1)
-					->fetch();
+			->where($name, $value)
+			->limit(1)
+			->fetch();
 	}
 
 

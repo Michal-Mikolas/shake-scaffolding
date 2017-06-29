@@ -20,7 +20,7 @@ class Service extends Object
 	private $repositoryName;
 
 
-	
+
 	/**
 	 * @param Nette\DI\Container
 	 */
@@ -39,7 +39,7 @@ class Service extends Object
 	 */
 	public function __call($name, $args)
 	{
-		$repository = $this->context->{ $this->getRepositoryName() };
+		$repository = $this->context->getService($this->getRepositoryName());
 
 		return call_user_func_array(array($repository, $name), $args);
 	}
@@ -127,13 +127,13 @@ class Service extends Object
 		} catch (\Nette\MemberAccessException $e) {
 			// Repository
 			if (strrpos($name, 'Repository') == (strlen($name) - 10)) {
-				$repository = $this->context->$name;
+				$repository = $this->context->getService($name);
 				return $repository;
 			}
-			
+
 			// Service
 			if (strrpos($name, 'Service') == (strlen($name) - 7)) {
-				$service = $this->context->$name;
+				$service = $this->context->getService($name);
 				return $service;
 			}
 

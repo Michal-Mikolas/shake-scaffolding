@@ -23,7 +23,7 @@ class VirtualPresenter extends ScaffoldingPresenter
 
 	public function formatTemplateFiles()
 	{
-		$name = $this->getName();		
+		$name = $this->getName();
 		$modules = explode(':', $name);
 		$presenter = array_pop($modules);
 
@@ -34,10 +34,10 @@ class VirtualPresenter extends ScaffoldingPresenter
 		}
 
 		return array(
+			"$dir/presenters/templates/$presenter/$this->view.latte",
+			"$dir/presenters/templates/$presenter.$this->view.latte",
 			"$dir/templates/$presenter/$this->view.latte",
 			"$dir/templates/$presenter.$this->view.latte",
-			"$dir/templates/$presenter/$this->view.phtml",
-			"$dir/templates/$presenter.$this->view.phtml",
 		);
 	}
 
@@ -55,19 +55,19 @@ class VirtualPresenter extends ScaffoldingPresenter
 			$module = ucfirst($module);
 			$dir .= "/{$module}Module";
 		}
-		
+
 		$list = array(
+			"$dir/presenters/templates/$presenter/@$layout.latte",
+			"$dir/presenters/templates/$presenter.@$layout.latte",
 			"$dir/templates/$presenter/@$layout.latte",
 			"$dir/templates/$presenter.@$layout.latte",
-			"$dir/templates/$presenter/@$layout.phtml",
-			"$dir/templates/$presenter.@$layout.phtml",
 		);
 		do {
+			$list[] = "$dir/presenters/templates/@$layout.latte";
 			$list[] = "$dir/templates/@$layout.latte";
-			$list[] = "$dir/templates/@$layout.phtml";
 			$dir = dirname($dir);
 		} while ($dir && ($name = substr($name, 0, strrpos($name, ':'))));
-		
+
 		return $list;
 	}
 

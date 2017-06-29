@@ -16,7 +16,7 @@ trait createComponentPaginator
 	protected function createComponentPaginator($name)
 	{
 		$vp = new VisualPaginator($this, $name);
-		$vp->paginator->itemsPerPage = 10;
+		$vp->getPaginator()->itemsPerPage = 10;
 
 		return $vp;
 	}
