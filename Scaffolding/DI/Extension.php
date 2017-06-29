@@ -18,18 +18,17 @@ class Extension extends Nette\DI\CompilerExtension
 	public function loadConfiguration()
 	{
 		$config = $this->compiler->getConfig();
-
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition('application.presenterFactoryCallback')
-		->setFactory(
-			'Nette\Bridges\ApplicationDI\PresenterFactoryCallback',
-			[
-				'@container',
-				Nette\Application\UI\Presenter::INVALID_LINK_WARNING,  // invalidLinkMode
-				FALSE,                                                 // touchToRefresh
-			]
-		);
+			->setFactory(
+				'Nette\Bridges\ApplicationDI\PresenterFactoryCallback',
+				[
+					'@container',
+					Nette\Application\UI\Presenter::INVALID_LINK_WARNING,  // invalidLinkMode
+					FALSE,                                                 // touchToRefresh
+				]
+			);
 
 		$builder->removeDefinition('application.presenterFactory');
 		$builder->addDefinition('application.presenterFactory')
