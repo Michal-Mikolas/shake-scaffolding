@@ -39,9 +39,9 @@ trait TBase
 
 
 
-	public function getServiceName()
+	public function getManagerName()
 	{
-		return $this->getEntityName() . 'Service';
+		return $this->getEntityName() . 'Manager';
 	}
 
 }

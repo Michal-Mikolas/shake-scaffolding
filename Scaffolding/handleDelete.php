@@ -13,7 +13,7 @@ trait handleDelete
 
 	public function handleDelete($id)
 	{
-		$result = $this->context->getService($this->getServiceName())
+		$result = $this->context->getService($this->getManagerName())
 			->delete($id);
 
 		if ($result) {

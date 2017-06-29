@@ -6,12 +6,12 @@ use Nette\Object,
 
 
 /**
- * Scaffolding\Service
+ * Scaffolding\Manager
  *
  * @author  Michal Mikoláš <nanuqcz@gmail.com>
  * @package Shake
  */
-class Service extends Object
+class Manager extends Object
 {
 	/** @var Nette\DI\Container */
 	protected $context;
@@ -32,7 +32,7 @@ class Service extends Object
 
 
 	/**
-	 * If service method doesn't exist, call repository
+	 * If manager's method doesn't exist, call repository
 	 * @param string
 	 * @param array
 	 * @return mixed
@@ -47,7 +47,7 @@ class Service extends Object
 
 
 	/**
-	 * Get main repository name for this service
+	 * Get main repository name for this manager
 	 * @return string
 	 */
 	public function getRepositoryName()
@@ -61,7 +61,7 @@ class Service extends Object
 
 
 	/**
-	 * Set main repository name for this service
+	 * Set main repository name for this manager
 	 * @param string
 	 * @return void
 	 */
@@ -108,7 +108,7 @@ class Service extends Object
 	 */
 	private function detectRepositoryName()
 	{
-		$name = get_class($this);                     // FooBarService
+		$name = get_class($this);                     // FooBarManager
 		$name = substr($name, 0, strlen($name) - 7);  // FooBar
 		$name = lcfirst($name);                       // fooBar
 
@@ -131,10 +131,10 @@ class Service extends Object
 				return $repository;
 			}
 
-			// Service
-			if (strrpos($name, 'Service') == (strlen($name) - 7)) {
-				$service = $this->context->getService($name);
-				return $service;
+			// Manager
+			if (strrpos($name, 'Manager') == (strlen($name) - 7)) {
+				$manager = $this->context->getService($name);
+				return $manager;
 			}
 
 			throw $e;

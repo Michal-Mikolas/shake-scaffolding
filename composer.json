@@ -22,8 +22,6 @@
 
 		"shake/shake": "2.4.*",
 		"shake/utils": "2.4.*",
-		"shake/application": "2.4.*",
-
-		"ipub/visual-paginator": "dev-master"
+		"shake/application": "2.4.*"
 	}
 }

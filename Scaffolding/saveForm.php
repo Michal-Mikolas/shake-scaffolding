@@ -19,12 +19,12 @@ trait saveForm
 
 		// Edit
 		if ($id = $this->getParam('id')) {
-			$this->context->getService($this->getServiceName())->update($id, $values);
+			$this->context->getService($this->getManagerName())->update($id, $values);
 			$this->flashMessage('Entry successfully updated.');
 
 		// Create
 		} else {
-			$this->context->getService($this->getServiceName())->create($values);
+			$this->context->getService($this->getManagerName())->create($values);
 			$this->flashMessage('Entry successfully created.');
 		}
 

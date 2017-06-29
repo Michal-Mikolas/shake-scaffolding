@@ -14,7 +14,7 @@ trait renderDetail
 	public function renderDetail($id)
 	{
 		$this->template->{$this->getEntityName()}
-		 = $this->context->getService($this->getServiceName())->get($id);
+		 = $this->context->getService($this->getManagerName())->get($id);
 	}
 
 }

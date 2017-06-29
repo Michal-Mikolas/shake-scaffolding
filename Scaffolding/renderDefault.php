@@ -14,16 +14,16 @@ trait renderDefault
 	public function renderDefault()
 	{
 		$this->template->{$this->getListName()}
-		 = $this->context->getService($this->getServiceName())->search();
+		 = $this->context->getService($this->getManagerName())->search();
 
-		$data = $this->context->getService($this->getServiceName())->search();
+		$data = $this->context->getService($this->getManagerName())->search();
 
 		if (isset($this['paginator'])) {
 			$this['paginator']->getPaginator()->itemCount
-			 = $this->context->getService($this->getServiceName())->count($data);
+			 = $this->context->getService($this->getManagerName())->count($data);
 			$this->template->{$this->getPaginatedListName()} = $this->paginate(  // wtf?
 				$data,
-				$this->context->getService($this->getServiceName())
+				$this->context->getService($this->getManagerName())
 			);
 		}
 	}
