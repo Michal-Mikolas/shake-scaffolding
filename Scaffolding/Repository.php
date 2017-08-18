@@ -394,8 +394,9 @@ class Repository extends Object
 	 */
 	private function detectTableName()
 	{
-		$tableName = get_class($this);                                          // FooBarRepository
-		$tableName = substr($tableName, 0, strrpos($tableName, 'Repository'));  // FooBar
+		$tableName = get_class($this);                                          // App\Model\FooBarRepository
+		$tableName = substr($tableName, 0, strrpos($tableName, 'Repository'));  // App\Model\FooBar
+		$tableName = substr($tableName, strrpos($tableName, '\\') + 1);         // FooBar
 		$tableName = $this->toUnderscoreCase($tableName);                       // foo_bar
 
 		return $tableName;

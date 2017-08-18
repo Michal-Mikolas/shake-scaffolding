@@ -108,11 +108,12 @@ class Manager extends Object
 	 */
 	private function detectRepositoryName()
 	{
-		$name = get_class($this);                     // FooBarManager
-		$name = substr($name, 0, strlen($name) - 7);  // FooBar
-		$name = lcfirst($name);                       // fooBar
+		$name = get_class($this);                         // App\Model\FooBarManager
+		$name = substr($name, 0, strlen($name) - 7);      // App\Model\FooBar
+		$name = substr($name, strrpos($name, '\\') + 1);  // FooBar
+		$name = lcfirst($name);                           // fooBar
 
-		return $name . 'Repository';                  // fooBarRepository
+		return $name . 'Repository';                      // fooBarRepository
 	}
 
 
