@@ -1,10 +1,12 @@
 <?php
 namespace Shake\Scaffolding;
 
-use Shake\Utils\Strings;
+use Shake\Utils\Strings,
+	Shake\Database\Orm;
 use Nette\Object,
 	Nette\Database\Table\IRowContainer,
 	Nette\Database\Table\IRow,
+	Nette\Database\Table\Selection,
 	Nette\MemberAccessException,
 	Nette\InvalidArgumentException,
 	Nette\Application\BadRequestException;
@@ -89,7 +91,7 @@ class Repository extends Object
 
 		if (is_array($conditions)) {
 			$conditions = $this->fixConditions($conditions);
-			$selection->where($conditions);
+			$this->applyConditions($selection, $conditions);
 		} else {
 			$selection->where($this->prefix('id'), $conditions);
 		}
@@ -111,7 +113,7 @@ class Repository extends Object
 
 		if ($conditions) {
 			$conditions = $this->fixConditions($conditions);
-			$selection->where($conditions);
+			$this->applyConditions($selection, $conditions);
 		}
 
 		if ($limit) {
@@ -385,6 +387,40 @@ class Repository extends Object
 		$tableName = $this->getTableName();
 
 		return $this->connection->table($tableName)->select("$tableName.*");
+	}
+
+
+
+	/**
+	 * @param Selection|Orm\Table
+	 * @param array
+	 * @return Selection
+	 */
+	protected function applyConditions($selection, array $conditions)
+	{
+		$orConds = [];
+		foreach ($conditions as $condition => $value) {
+			$condition = trim($condition);
+
+			// Cache OR conditions for later
+			if (Strings::endsWith($condition, ' OR')) {
+				$condition = preg_replace('/ OR$/', '', $condition);
+				$orConds[$condition] = $value;
+				continue;
+			}
+
+			// Process OR conditions
+			if ($orConds) {
+				$selection->whereOr($orConds);
+				$orConds = [];
+
+			// Process AND condition
+			} else {
+				$selection->where($condition, $value);
+			}
+		}
+
+		return $selection;
 	}
 
 
