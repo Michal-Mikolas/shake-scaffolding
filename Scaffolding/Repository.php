@@ -411,6 +411,7 @@ class Repository extends Object
 
 			// Process OR conditions
 			if ($orConds) {
+				$orConds[$condition] = $value;
 				$selection->whereOr($orConds);
 				$orConds = [];
 
