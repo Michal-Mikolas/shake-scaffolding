@@ -400,7 +400,11 @@ class Repository extends Object
 	{
 		$orConds = [];
 		foreach ($conditions as $condition => $value) {
-			$condition = trim($condition);
+			if (is_int($condition)) {
+				$condition = $value;
+			} else {
+				$condition = trim($condition);
+			}
 
 			// Cache OR conditions for later
 			if (Strings::endsWith($condition, ' OR')) {
@@ -417,7 +421,11 @@ class Repository extends Object
 
 			// Process AND condition
 			} else {
-				$selection->where($condition, $value);
+				if ($condition == $value) {
+					$selection->where($condition);
+				} else {
+					$selection->where($condition, $value);
+				}
 			}
 		}
 
