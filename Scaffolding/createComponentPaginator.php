@@ -1,7 +1,7 @@
 <?php
 namespace Shake\Scaffolding;
 
-use Shake\VisualPaginator;
+use Shake\Components\VisualPaginator;
 
 
 /**
