@@ -3,7 +3,7 @@ namespace Shake\Scaffolding;
 
 use Shake\Utils\Strings,
 	Shake\Database\Orm;
-use Nette\Object,
+use Nette\SmartObject,
 	Nette\Database\Table\IRowContainer,
 	Nette\Database\Table\IRow,
 	Nette\Database\Table\Selection,
@@ -19,8 +19,10 @@ use Nette\Object,
  * @author  Michal Mikoláš <nanuqcz@gmail.com>
  * @package Shake
  */
-class Repository extends Object
+class Repository
 {
+	use SmartObject;
+
 	/** @var Nette\Database\Context|Shake\Database\Orm\Context */
 	private $connection;
 

@@ -1,7 +1,7 @@
 <?php
 namespace Shake\Scaffolding;
 
-use Nette\Object,
+use Nette\SmartObject,
 	Nette\DI\Container;
 
 
@@ -11,8 +11,10 @@ use Nette\Object,
  * @author  Michal Mikoláš <nanuqcz@gmail.com>
  * @package Shake
  */
-class Manager extends Object
+class Manager
 {
+	use SmartObject;
+
 	/** @var Nette\DI\Container */
 	protected $context;
 
